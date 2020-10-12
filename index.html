@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quick Pick</title>
+</head>
+
+<body>
+	<script type="text/javascript">
+	
+	//get 5 random lottery nums and 1 random lucky ball num
+	var numbers = [];
+		for (i=0; i<5; i++){
+			numbers[i] = Math.floor(Math.random() * 47 + 1);
+		}
+	var lb = Math.floor(Math.random() * 17 + 1); 
+	
+		
+	//get winning lottery nums from user and format into ints in ray
+	var wNumsStr = prompt("Enter the winning numbers separated by spaces");
+	var wLb = Number(prompt("Enter the winning lucky ball number"));
+	
+	var wNumsStrRay = wNumsStr.split(" ");	
+	var wNumsInt = new Array(5);
+		
+	for (i=0; i<5; i++) {
+		wNumsInt[i] = Number(wNumsStrRay[i]);
+	}
+	
+	
+	//check matches
+	var matches = 0;
+	var found = false;
+	for (i=0; i<5; i++) {
+		found= false;  //reset
+		for (j=0; j<5; j++) {
+			if (numbers[j] == wNumsInt[i]) {
+				found = true; 
+			}
+		}
+		if (found) {
+			matches++;
+		}
+	} 
+		
+	var lbMatch = false;
+		if (lb == wLb) {
+			lbMatch = true;
+		} 
+	
+		
+	//possible outcomes, [2 mathces, 3, 4, 5] , [0+lb, 1+lb, etc]
+	var nlbPrizes = ["$3","$20","$200","$25,000 a YEAR for LIFE"];
+	var lbPrizes = ["$4","$6","$25","$150","$5,000","$7,000 a WEEK for LIFE"];
+		
+		
+	//display output
+	document.write("The quick pick numbers are:")
+		for (i=0; i<5; i++) {
+			document.write(" " + numbers[i]);
+		}
+	document.write("<br/> The lucky ball number is " + lb);
+		
+	document.write("<br/> <br/> The winning numbers are " + wNumsStr +
+				  "<br/> The lucky ball number is " + wLb + "<br/> <br/>");
+		
+	if (lbMatch) {
+		document.write("You win! Your Payout is: ")
+		document.write(lbPrizes[matches]);
+	} else {
+		if (matches > 1) {
+			document.write("You win! Your Payout is: ")
+			document.write(nlbPrizes[(matches-2)]);
+		} else {
+			document.write("Sorry, you didn't win this time.");
+		}
+	} 
+		
+	</script>
+</body>
+</html>
